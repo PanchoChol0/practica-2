@@ -19,6 +19,17 @@ void imprimirArreglo(int arr[], int n) {
     }
     printf("\n");
 }
+void medirTiempo(void (*ordenamiento)(int[], int), int arr[], int longitud, const char* nombre) {
+    clock_t inicio, fin;
+    double tiempo;
+
+    inicio = clock();
+    ordenamiento(arr, longitud);
+    fin = clock();
+
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+    printf("Tiempo de ejecución de %s: %lf segundos\n", nombre, tiempo);
+}
 
 int main() {
     int n = 10; // Tamaño del arreglo aleatorio
