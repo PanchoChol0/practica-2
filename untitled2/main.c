@@ -1,31 +1,41 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
-#include "orden.h"
+#include "orden.h" // Asegúrate de incluir tus funciones de ordenamiento aquí
 
-// Función para medir el tiempo de ejecución de una función de ordenamiento
-void medirTiempo(void (*ordenamiento)(int[], int), int arr[], int longitud, const char* nombre) {
-    clock_t inicio, fin;
-    double tiempo;
+// Función para generar un arreglo de números aleatorios de tamaño n
+void generarArregloAleatorio(int arr[], int n) {
+    srand(time(NULL)); // Inicializar la semilla para números aleatorios
 
-    inicio = clock();
-    ordenamiento(arr, longitud);
-    fin = clock();
+    for (int i = 0; i < n; i++) {
+        arr[i] = rand() % 1000; // Genera números aleatorios entre 0 y 999 (puedes ajustar el rango)
+    }
+}
 
-    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
-    printf("Tiempo de ejecucion de %s: %lf segundos\n", nombre, tiempo);
+// Función para imprimir un arreglo
+void imprimirArreglo(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 }
 
 int main() {
-    int arreglo[] = {5, 2, 3, 1, 4};
-    int longitud = sizeof(arreglo) / sizeof(arreglo[0]);
+    int n = 10; // Tamaño del arreglo aleatorio
+
+    int arreglo[n];
+
+    // Generar el arreglo aleatorio
+    generarArregloAleatorio(arreglo, n);
+
+    printf("Arreglo aleatorio:\n");
+    imprimirArreglo(arreglo, n);
 
     // Medir el tiempo de ejecución del algoritmo Gnome Sort
-    medirTiempo(gnomeSort, arreglo, longitud, "Gnome Sort");
+    medirTiempo(gnomeSort, arreglo, n, "Gnome Sort");
 
-    printf("Arreglo ordenado: ");
-    for (int i = 0; i < longitud; i++) {
-        printf("%d ", arreglo[i]);
-    }
+    printf("Arreglo ordenado:\n");
+    imprimirArreglo(arreglo, n);
 
     return 0;
 }
