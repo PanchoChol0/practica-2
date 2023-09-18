@@ -1,23 +1,26 @@
 #include <stdio.h>
+#include <time.h>
 #include "orden.h"
 
-/*
-Implementacion de algoritmos de ordenamiento y verificacion de tiempos de ejecucion
-1.-Burbuja
-2.-Seleccion
-3.-Insercion
-4.-Counting
-5.-Bucket
-6.-Timsort
-7.-Quick
-8.-Gnome
+// Función para medir el tiempo de ejecución de una función de ordenamiento
+void medirTiempo(void (*ordenamiento)(int[], int), int arr[], int longitud, const char* nombre) {
+    clock_t inicio, fin;
+    double tiempo;
 
-*/
+    inicio = clock();
+    ordenamiento(arr, longitud);
+    fin = clock();
+
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+    printf("Tiempo de ejecucion de %s: %lf segundos\n", nombre, tiempo);
+}
+
 int main() {
     int arreglo[] = {5, 2, 3, 1, 4};
     int longitud = sizeof(arreglo) / sizeof(arreglo[0]);
 
-    gnomeSort(arreglo, longitud);
+    // Medir el tiempo de ejecución del algoritmo Gnome Sort
+    medirTiempo(gnomeSort, arreglo, longitud, "Gnome Sort");
 
     printf("Arreglo ordenado: ");
     for (int i = 0; i < longitud; i++) {
